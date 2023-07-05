@@ -9,10 +9,11 @@ const PropertyCard = ({
   handleLike,
   hostname,
   rating,
+  id
 }) => {
   return (
     <div className="h-full min-w-full cursor-pointer relative">
-      <div className="outline-none absolute top-4 right-4" onClick={() => handleLike(propertyTitle)} role='button' tabIndex={0}>
+      <div className="outline-none absolute top-4 right-4" onClick={() => handleLike(id)} role='button' tabIndex={0}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill={liked ? "#FF385C" : "#323232"}
@@ -76,9 +77,10 @@ PropertyCard.propTypes = {
   propertyTitle: PropTypes.string.isRequired,
   propertyImage: PropTypes.string.isRequired,
   pricePerNight: PropTypes.number.isRequired,
-  availableNights: PropTypes.number.isRequired,
+  availableNights: PropTypes.string.isRequired,
   liked: PropTypes.bool.isRequired,
   handleLike: PropTypes.func.isRequired,
   hostname: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };

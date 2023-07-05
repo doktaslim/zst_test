@@ -13,6 +13,18 @@ function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+
+
+function dec2hex (dec) {
+  return dec.toString(16).padStart(2, "0")
+}
+
+function generateId (len) {
+  const arr = new Uint8Array((len || 40) / 2)
+  window.crypto.getRandomValues(arr)
+  return Array.from(arr, dec2hex).join('')
+}
+
 // Generate random property listing titles
 function generateRandomTitle() {
   const adjectives = ['Luxurious', 'Cozy', 'Modern', 'Charming', 'Spacious', 'Stunning', 'Elegant', 'Secluded', 'Unique'];
@@ -53,7 +65,7 @@ function formatDate(date) {
 // Generate the mock data array
 const mockData = [];
 
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 32; i++) {
   const category = filterCategories[getRandomNumber(0, filterCategories.length - 1)];
   const rating = getRandomNumber(1.5, 5);
   const formattedRating = rating === 5 ? rating.toFixed(2) : rating.toFixed(2);
@@ -63,11 +75,11 @@ for (let i = 0; i < 30; i++) {
   const availableNights = `${formatDate(startDate)} - ${formatDate(endDate)}`;
 
   const mockObject = {
-    id: i + 1,
+    id: generateId(),
     propertyTitle: generateRandomTitle(),
     propertyImage: generateRandomImage(),
     pricePerNight: getRandomNumber(50, 300),
-    rating: formattedRating,
+    rating: Number(formattedRating),
     hostname: `Host ${i + 1}`,
     availableNights: availableNights,
     category: category.title,
