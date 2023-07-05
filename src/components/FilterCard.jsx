@@ -16,6 +16,7 @@ const FilterCard = ({ title, icon, handleFilter, selectedCategory }) => {
           src={icon}
           alt={title}
           className="h-full w-full object-contain aspect-square"
+          loading="lazy"
         />
       </div>
       <p className="text-center text-xs w-max font-medium group-hover:text-gray-900">
