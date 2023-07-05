@@ -3,10 +3,17 @@ import Filters from "./components/Filters";
 import Layout from "./components/Layout";
 import PropertyListing from "./components/PropertyListing";
 import { mockDataArray } from "./utils";
+import MapView from "./components/Map";
+import SwitchHandler from "./components/SwitchHandler";
 
 const App = () => {
-  const [selectedCategory, setSelectedCategory] = useState('')
-  const [properties, setProperties] = useState(mockDataArray)
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [properties, setProperties] = useState(mockDataArray);
+  const [view, setView] = useState("listing");
+
+  const handleView = () => {
+    return setView((prev) => (prev === "listing" ? "map" : "listing"));
+  };
 
   return (
     <Layout>
@@ -16,11 +23,22 @@ const App = () => {
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
-      <PropertyListing
-        selectedCategory={selectedCategory}
-        properties={properties}
-        setProperties={setProperties}
-      />
+      <main className="relative">
+        {view === "listing" && (
+          <PropertyListing
+            selectedCategory={selectedCategory}
+            properties={properties}
+            setProperties={setProperties}
+          />
+        )}
+
+        {view === "map" && <MapView />}
+
+        <SwitchHandler
+          view={view}
+          handleView={handleView}
+        />
+      </main>
     </Layout>
   );
 };
