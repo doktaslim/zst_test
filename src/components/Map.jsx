@@ -1,37 +1,19 @@
-import { GoogleMap, useLoadScript } from "@react-google-maps/api";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 const MapView = () => {
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY,
-  });
-
-  if (loadError) {
-    return (
-      <div className="h-[80dvh] grid place-items-center">
-        <p className="text-center font-medium">Error occured loading maps</p>
-      </div>
-    );
-  }
-
-  return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={{
-        height: "100%",
-        width: "100%",
-      }}
-      zoom={9}
-      center={{ lat: -34.397, lng: 150.644 }}
-      options={{
-        zoomControl: true,
-      }}
+  return (
+    <MapContainer
+      center={[51.505, -0.09]} // Set the initial center of the map
+      zoom={13} // Set the initial zoom level
+      style={{ height: "400px", width: "100%" }} // Adjust the size of the map
     >
-
-    </GoogleMap>
-  ) : (
-      <div className="h-[80dvh] grid place-items-center">
-        <p className="text-center font-medium">Loading maps...</p>
-      </div>
-  )
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" // Specify the tile layer source
+      />
+      <Marker position={[51.505, -0.09]} /> 
+    </MapContainer>
+  );
 };
 
 export default MapView;
